@@ -1,3 +1,59 @@
+# DeepCell-Spots (Custom Fork for Cluster Use)
+
+This is a customized fork of `deepcell-spots` for running DeepCell spot detection in parallel on compute clusters (e.g., SLURM arrays).
+
+---
+
+## 🔧 Custom Patch: Modified `spot_detection.py`
+
+This fork includes a modification to `deepcell_spots/applications/spot_detection.py` to prevent issues when extracting the model archive concurrently in job arrays.
+
+### ✅ What Changed?
+
+- The model is no longer auto-extracted by every job.
+- Prevents file corruption like `PermissionError` and `Read less bytes than requested`.
+- Compatible with SLURM parallel processing of FOV/Z combinations.
+
+---
+
+## 🔐 Bypass DeepCell Access Token
+
+Instead of requiring a `DEEPCELL_ACCESS_TOKEN`, **pre-extract the model manually**:
+
+```bash
+mkdir -p ~/.deepcell/models/SpotDetection-8
+tar -xzf ~/.deepcell/models/SpotDetection-8.tar.gz -C ~/.deepcell/models/SpotDetection-8
+```
+
+---
+
+## 🧪 Running `deepcell_spots_experiment`
+
+### 1. Clone This Fork
+
+```bash
+git clone https://github.com/tsuijenk/DeepCell-Spots.git
+cd DeepCell-Spots
+```
+
+Ensure your environment uses this version of the package.
+
+### 2. SLURM Execution
+
+#### Run DeepCell Spots Per-FOV/Z (Non-Preprocessed Images):
+
+```bash
+sbatch ./experimental_run_script/polaris_run_both_xps.sh
+```
+
+#### Merge Output per Dataset:
+
+```bash
+sbatch ./experimental_run_script/batch_merge_polaris_output.sh
+```
+
+---
+
 # DeepCell Spots
 
 [![Build Status](https://github.com/vanvalenlab/deepcell-spots/workflows/build/badge.svg)](https://github.com/vanvalenlab/deepcell-spots/actions)
