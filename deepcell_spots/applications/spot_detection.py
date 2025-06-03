@@ -113,21 +113,24 @@ class SpotDetection(Application):
         if model is None:
             cache_subdir = "models"
             model_dir = Path.home() / ".deepcell" / "models"
-
-            archive_path = fetch_data(
-                asset_key=MODEL_KEY,
-                cache_subdir=cache_subdir,
-                file_hash=MODEL_HASH
-            )
-            extract_archive(archive_path, model_dir)
             model_path = model_dir / MODEL_NAME
+        
+            if not model_path.exists():
+                archive_path = fetch_data(
+                    asset_key=MODEL_KEY,
+                    cache_subdir=cache_subdir,
+                    file_hash=MODEL_HASH
+                )
+                extract_archive(archive_path, model_dir)
+        
             model = tf.keras.models.load_model(
-                model_path, custom_objects={
+                model_path,
+                custom_objects={
                     'regression_loss': DotNetLosses.regression_loss,
                     'classification_loss': DotNetLosses.classification_loss
                 }
             )
-
+            
         super(SpotDetection, self).__init__(
             model,
             model_image_shape=model.input_shape[1:],
