@@ -8,7 +8,7 @@ This is a customized fork of `deepcell-spots` for running DeepCell spot detectio
 
 This fork includes a modification to `deepcell_spots/applications/spot_detection.py` to prevent issues when extracting the model archive concurrently in job arrays.
 
-### ✅ What Changed?
+### What Changed?
 
 - The model is no longer auto-extracted by every job.
 - Prevents file corruption like `PermissionError` and `Read less bytes than requested`.
@@ -16,7 +16,7 @@ This fork includes a modification to `deepcell_spots/applications/spot_detection
 
 ---
 
-## 🔐 Bypass DeepCell Access Token
+## Bypass DeepCell Access Token
 
 Instead of requiring a `DEEPCELL_ACCESS_TOKEN`, **pre-extract the model manually**:
 
@@ -27,7 +27,7 @@ tar -xzf ~/.deepcell/models/SpotDetection-8.tar.gz -C ~/.deepcell/models/SpotDet
 
 ---
 
-## 🧪 Running `deepcell_spots_experiment`
+## Running `deepcell_spots_experiment`
 
 ### 1. Clone This Fork
 
@@ -54,7 +54,7 @@ sbatch ./experimental_run_script/batch_merge_polaris_output.sh
 
 ---
 
-## 📌 Note on Model Tarball and Permissions
+## Note on Model Tarball and Permissions
 
 You **do not need to change file permissions** on `SpotDetection-8.tar.gz`.
 
