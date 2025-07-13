@@ -4,7 +4,7 @@ This is a customized fork of `deepcell-spots` for running DeepCell spot detectio
 
 ---
 
-## 🔧 Custom Patch: Modified `spot_detection.py`
+## Custom Patch: Modified `spot_detection.py`
 
 This fork includes a modification to `deepcell_spots/applications/spot_detection.py` to prevent issues when extracting the model archive concurrently in job arrays.
 
